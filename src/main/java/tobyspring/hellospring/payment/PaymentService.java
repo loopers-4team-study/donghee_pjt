@@ -1,4 +1,4 @@
-package tobyspring.hellospring;
+package tobyspring.hellospring.payment;
 
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class PaymentService {
         this.exRateProvider = exRateProvider;
     }
 
-    public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
+    public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) {
         BigDecimal exRate = exRateProvider.getExRate(currency);
         BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
         LocalDateTime validUntil = LocalDateTime.now().plusMinutes(30);

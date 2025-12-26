@@ -28,9 +28,10 @@ public class WebApiExRateProvider implements ExRateProvider {
         String response;
         try {
             HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            response = br.lines().collect(Collectors.joining());
-            br.close();
+
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                response = br.lines().collect(Collectors.joining());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
